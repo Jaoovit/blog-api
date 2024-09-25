@@ -7,6 +7,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+// Prisma session configuration
+const initializeSession = require("./config/session");
+initializeSession(app);
+
 // Routes
 const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
