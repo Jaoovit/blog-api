@@ -1,5 +1,6 @@
-require("dotenv").config;
 const express = require("express");
+const initializeSession = require("./config/session");
+require("dotenv").config;
 
 const app = express();
 
@@ -11,7 +12,6 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 // Prisma session configuration
-const initializeSession = require("./config/session");
 initializeSession(app);
 
 // Routes

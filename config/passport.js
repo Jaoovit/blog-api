@@ -1,3 +1,4 @@
+require("dotenv").config();
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const JwtStrategy = require("passport-jwt").Strategy;
@@ -41,6 +42,8 @@ passport.deserializeUser(async (id, done) => {
     done(error);
   }
 });
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
