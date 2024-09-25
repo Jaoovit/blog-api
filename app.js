@@ -3,6 +3,10 @@ const express = require("express");
 
 const app = express();
 
+// Middleware to parte JSON and URL-encoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Routes
 const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
