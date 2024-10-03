@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { post } = require("../routes/postRoutes");
 
 const prisma = new PrismaClient();
 
@@ -63,4 +62,32 @@ const updatePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, updatePost };
+const deletePost = async (req, res) => {
+  try {
+    // Test postman url - /post/delete/${postId}
+    const postId = parseInt(req.params.id, 10);
+
+    await prisma.$transaction(async (prisma) => {
+      await prisma.comment.deleteMany({
+        where: {
+          postId: postId,
+        },
+      });
+
+      await prisma.post.delete({
+        where: {
+          id: postId,
+        },
+      });
+    });
+
+    res.json({
+      message: "Post delited successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error deleting post." });
+  }
+};
+
+module.exports = { createPost, updatePost, deletePost };
