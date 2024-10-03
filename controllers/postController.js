@@ -2,6 +2,19 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+const getAllPosts = async (req, res) => {
+  try {
+    const allPosts = await prisma.post.findMany();
+
+    res
+      .status(201)
+      .json({ message: "Post getted successfully", posts: allPosts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error getting posts." });
+  }
+};
+
 // Test postman header - Authorization: Bearer${token}
 
 const createPost = async (req, res) => {
@@ -90,4 +103,4 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, updatePost, deletePost };
+module.exports = { createPost, updatePost, deletePost, getAllPosts };
