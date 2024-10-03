@@ -8,10 +8,38 @@ const getAllPosts = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "Post getted successfully", posts: allPosts });
+      .json({ message: "Posts getted successfully", posts: allPosts });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error getting posts." });
+  }
+};
+
+const getPost = async (req, res) => {
+  try {
+    // Test postman url - /post/${postId}
+    const postId = parseInt(req.params.id, 10);
+
+    if (isNaN(postId)) {
+      return res.status(400).send("Invalid post id");
+    }
+
+    const post = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+    });
+
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+
+    return res
+      .status(201)
+      .json({ message: "Post getted sucessfully", post: post });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error getting post." });
   }
 };
 
@@ -103,4 +131,4 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, updatePost, deletePost, getAllPosts };
+module.exports = { getAllPosts, getPost, createPost, updatePost, deletePost };

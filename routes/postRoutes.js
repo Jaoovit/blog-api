@@ -4,6 +4,7 @@ const router = express.Router();
 const verifyToken = require("../config/token");
 
 router.get("/posts", postController.getAllPosts);
+router.get("/post/:id", postController.getPost);
 router.post("/post/create", verifyToken, postController.createPost);
 router.post("/post/update/:id", verifyToken, postController.updatePost);
 router.delete("/post/delete/:id", verifyToken, postController.deletePost);
