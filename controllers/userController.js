@@ -41,6 +41,8 @@ const registerUser = async (req, res) => {
   }
 };
 
+// Test postman header - Content-Type: application/json
+
 const loginUser = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
