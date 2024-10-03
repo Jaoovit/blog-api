@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { post } = require("../routes/postRoutes");
 
 const prisma = new PrismaClient();
 
@@ -32,4 +33,34 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { createPost };
+const updatePost = async (req, res) => {
+  try {
+    // Test postman url - /post/update/${postId}
+    const postId = parseInt(req.params.id, 10);
+    const { newTitle, newPostContent } = req.body;
+
+    if (isNaN(postId)) {
+      return res.status(400).send("Invalid post id");
+    }
+
+    const updatedPost = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        title: newTitle,
+        postContent: newPostContent,
+      },
+    });
+
+    res.json({
+      message: "Post updated successfully",
+      post: updatedPost,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error updating post." });
+  }
+};
+
+module.exports = { createPost, updatePost };
