@@ -43,7 +43,7 @@ const getPost = async (req, res) => {
   }
 };
 
-// Test postman header - Authorization: Bearer${token}
+// Test postman header - Authorization: Bearer${token} and Content-Type: application/json
 
 const createPost = async (req, res) => {
   const { title, postContent } = req.body;
