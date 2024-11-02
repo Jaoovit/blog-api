@@ -47,6 +47,8 @@ A RESTful API designed for managing a blogging platform, developed with Node.js 
 
     - Secret to config JWT after JWT_SECRET=
 
+3. Config corsOptions for your frontend application domain
+
 ## 🏃‍➡️ Start
 
 - **Run commands:**
