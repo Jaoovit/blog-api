@@ -7,7 +7,6 @@ const app = express();
 const cors = require("cors");
 
 /*
-
 Cors options example
 
 const corsOptions = {
